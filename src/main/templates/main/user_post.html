@@ -1,0 +1,26 @@
+{%extends "main/base.html"%}
+{%block content%}
+{%if username != None %}
+<img class="rounded-circle account-img" src="{{ username.profile.image.url }}" style="height: 200px; width: 200px; display: block; margin-left: auto; margin-right: auto;">
+<div style="text-align: center;"><h1 class="mb-3">{{ username }}<small style="font-size: small;">({{ page_obj.paginator.count }})</small></h1></div>
+<p class="text-secondary" style="text-align: center;">{{ username.email }}</p>
+<h3>Created Posts</h3>
+{%else%}
+<h1 style="text-align:center;">Posts</h1>
+{%endif%}
+
+<hr style="width: 70%;">
+{% for post in posts %}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <small class="text-muted">Created On: {{ post.date|date:"F d, Y" }}</small>
+    </div>
+    <h2><a class="article-title" href="{% url 'detail' post.id %}">{{ post.title }}</a></h2>
+    <p class="article-content">{{ post.content }}</p>
+  </div>
+</article>
+{% endfor %}
+
+{%endblock%}
+ 
